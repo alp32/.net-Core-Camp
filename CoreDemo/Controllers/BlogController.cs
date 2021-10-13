@@ -22,5 +22,6 @@ namespace CoreDemo.Controllers
             var values = bm.GetBlogById(id);
             return View(values); 
         }
+     
     }
 }
