@@ -13,7 +13,7 @@ namespace CoreDemo.Controllers
         AboutManager abm = new AboutManager(new EfAboutRepository()); 
         public IActionResult Index()
         {
-            var values = abm.Getlist();
+            var values = abm.GetList();
             return View(values);
         }
         public PartialViewResult SocialMediaAbout()
