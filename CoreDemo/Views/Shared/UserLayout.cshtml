@@ -36,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="~/CoreBlogTema/css/contact.css" rel='stylesheet' type='text/css' />
     <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
           rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -85,56 +86,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </header>
     <!--//header-->
     <!--/banner-->
-   
     <!--//banner-->
     <!--/main-->
     @RenderBody();
-        
+
     <!--//main-->
     <!--footer-->
     @await Html.PartialAsync("Partial3")
     <!---->
     <!-- js -->
-    <script src="js/jquery-2.2.3.min.js"></script>
     <!-- //js -->
     <!--/ start-smoth-scrolling -->
-    <script src="js/move-top.js"></script>
-    <script src="js/easing.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!--// end-smoth-scrolling -->
 
     <script>
-		$(document).ready(function () {
-			/*
-									var defaults = {
-							  			containerID: 'toTop', // fading element id
-										containerHoverID: 'toTopHover', // fading element hover id
-										scrollSpeed: 1200,
-										easingType: 'linear'
-							 		};
-									*/
+        $(document).ready(function () {
+            /*
+                                    var defaults = {
+                                            containerID: 'toTop', // fading element id
+                                        containerHoverID: 'toTopHover', // fading element hover id
+                                        scrollSpeed: 1200,
+                                        easingType: 'linear'
+                                        };
+                                    */
 
-			$().UItoTop({
-				easingType: 'easeOutQuart' 
-			});
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-		});
-    </script> 
+        });
+    </script>
     <a href="#home" class="scroll" id="toTop" style="display: block;">
         <span id="toTopHover" style="opacity: 1;"> </span>
     </a>
 
     <!-- //Custom-JavaScript-File-Links -->
     <script src="~/CoreBlogTema/js/bootstrap.js"></script>
+
 
 
 </body>

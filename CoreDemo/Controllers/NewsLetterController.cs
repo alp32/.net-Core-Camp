@@ -1,10 +1,8 @@
 ﻿using BusinessLayer.Concrete;
+using CoreDemo.Models.AraModeller;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq; 
 using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
@@ -13,18 +11,25 @@ namespace CoreDemo.Controllers
     {
         NewsLetterManager nm = new NewsLetterManager(new EfNewsLetterRepository());
 
-        [HttpGet]
-        public PartialViewResult SubscribeMail()
+        
+       
+        public async Task<IActionResult> SubscribeMail(NewsLetter p)
         {
-            return PartialView();
-        }
-        [HttpPost]
-        public PartialViewResult SubscribeMail(NewsLetter p)
-        {
-            p.MailStatus = true;
-            nm.AddNewsLetter(p);
+            try
+            {
+                p.MailStatus = true;
+                await nm.AddNewsLetter(p); ;
+
+                return Json(new ResultModel { Success = true });
+            }
+            catch (System.Exception ex)
+            {
+                return Json(new ResultModel { Success = false, Message = ex.Message });
+            }
+           
+           
              
-            return PartialView();
+           
         }
     }
 }

@@ -3,6 +3,7 @@ using BusinessLayer.ValidationRules;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
@@ -29,7 +31,7 @@ namespace CoreDemo.Controllers
             {
                 p.WriterStatus = true;
                 p.WriterAbout = "Deneme Test";
-                wm.WriterAdd(p);
+                wm.TAdd(p);
                 return RedirectToAction("Index", "Blog");
             }
             else

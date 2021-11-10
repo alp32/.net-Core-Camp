@@ -32,8 +32,16 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1 mb-2">Şifre</label>
-                        @Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control" })     
+                        @Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control", @id = "pw" })
                         @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1 mb-2">Şifre</label>
+                            <input type="password" class="form-control" id="pw1" placeholder="" required="">
+                        </div>
+                        <label class="sifre_sonuc" mb-2"></label>
+                        @*@Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control", @id = "pw1" })
+        @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })*@
                         @*<input type="password" class="form-control" name="WriterPassword" id="password1" placeholder="" required="">*@
                     </div>
                     <div class="form-group col-md-6">
@@ -44,7 +52,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+                <button type="submit" id="b1" class="btn btn-primary submit mb-4">Kayıt Ol</button>
                 <p>
                     <a href="#" id="btn1">Tüm şartları okudum kabul ediyorum. </a>
                 </p>
@@ -58,6 +66,25 @@
     <script>
         $('#btn1').click(function () {
             swal("Site Kabul Şartları ","Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-postaları spam ölçüsüne varmadan gönderilmeye devam edilecektir . Eğer E-posta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz ,şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının görmeyeceği şekilde veri tabanlarımızda saklanmaktadır");
+        });
+
+        /*öncelikle sayfa tamamen yüklendi ise diye bir seçenek koyalım*/
+        $(document).ready(function () {
+            /*sayfada bulunan inputlardan bir tanesine odaklanma kaybolur ise (yani kullanici inputun dışına çıkarsa ) bir fonksiyon çalıştırıyoruz.*/
+            $("input").focusout(function () {
+                /*sifre inputunun değerini okuyoruz*/
+                sifre = $("input#pw").val();
+                /*sifre_tekrar inputunun değerini okuyoruz.*/
+                sifre_tekrar = $("input#pw1").val();
+                /*eğer şifreler eşit değil ise*/
+                if (sifre != sifre_tekrar) {
+                    /*iki inputun altında bulunan labellere şifreler uyumsuz yazdırıyoruz.*/
+                    $(".sifre_sonuc").html("Şifreler Uyumsuz..");
+                } else {
+                    /*iki inputun altında bulunan labellere şifreler uyumlu yazdırıyoruz.*/
+                    $(".sifre_sonuc").html("Şifreler Uyumlu..");
+                }
+            });
         });
     </script>
 </section>

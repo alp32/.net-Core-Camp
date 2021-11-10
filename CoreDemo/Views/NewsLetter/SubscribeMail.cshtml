@@ -1,9 +1,61 @@
 ﻿<div class="tech-btm">
-    
-    <p>Teknoloji,yazılım ve diğer bloglar... </p>
-    <form method="post">
+
+    <p>Teknoloji,yazılımss ve diğer bloglar... </p>
+    <form id="form" asp-controller="NewsLetter" asp-action="SubscribeMail" >
         <input type="email" placeholder="Email" required="" name="Mail">
         <input type="submit" value="Subscribe">
     </form>
 
 </div>
+<script type="text/javascript">
+   
+
+
+    $("#form").submit(function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (result) {
+
+                console.log(result);
+
+                if (result.success) {
+                    swal({
+                        title: "Bilgi",
+                        text: "Kayıt Başarılı",
+                        icon: "success",
+                        button: "Tamam",
+                    });
+
+                   
+
+                    
+
+                }
+                else {
+                    swal({
+                        title: "Uyarı",
+                        text: result.message,
+                        icon: "error",
+                        button: "Tamam",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+                    title: "Uyarı",
+                    text: "saaa",
+                    icon: "error",
+                    button: "Tamam",
+                });
+            }
+        });
+    });
+</script>

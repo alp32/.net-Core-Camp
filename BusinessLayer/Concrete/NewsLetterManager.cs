@@ -18,9 +18,10 @@ namespace BusinessLayer.Concrete
             _newsletterDal = newsletterDal;
         }
 
-        public void AddNewsLetter(NewsLetter newsLetter)
+        public Task AddNewsLetter(NewsLetter newsLetter)
         {
             _newsletterDal.Insert(newsLetter);
+            return Task.CompletedTask;
         }
     }
 }
