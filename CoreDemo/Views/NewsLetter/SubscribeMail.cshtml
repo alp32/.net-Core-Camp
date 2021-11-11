@@ -1,7 +1,7 @@
 ﻿<div class="tech-btm">
 
     <p>Teknoloji,yazılımss ve diğer bloglar... </p>
-    <form id="form" asp-controller="NewsLetter" asp-action="SubscribeMail" >
+    <form class="form" asp-controller="NewsLetter" asp-action="SubscribeMail" >
         <input type="email" placeholder="Email" required="" name="Mail">
         <input type="submit" value="Subscribe">
     </form>
@@ -11,7 +11,7 @@
    
 
 
-    $("#form").submit(function (e) {
+    $(".form").submit(function (e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);

@@ -18,10 +18,14 @@ namespace BusinessLayer.Concrete
             _blogDal = blogDal;
         }
 
-   
 
-     
 
+
+        public Task AddNewBlog(Blog blog)
+        {
+            _blogDal.Insert(blog);
+            return Task.CompletedTask;
+        }
         public List<Blog> GetBlogListWithCategory()
         {
             return _blogDal.GetListWithCategory();

@@ -32,16 +32,16 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1 mb-2">Şifre</label>
-                        @Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control", @id = "pw" })
+                        @Html.TextBoxFor(x => x.WriterPassword, new {@type="password", @class = "form-control", @id = "pw" })
                         @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1 mb-2">Şifre</label>
+                            <label for="exampleInputPassword1 mb-2">Şifre Onay</label>
                             <input type="password" class="form-control" id="pw1" placeholder="" required="">
                         </div>
                         <label class="sifre_sonuc" mb-2"></label>
                         @*@Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control", @id = "pw1" })
-        @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })*@
+            @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })*@
                         @*<input type="password" class="form-control" name="WriterPassword" id="password1" placeholder="" required="">*@
                     </div>
                     <div class="form-group col-md-6">
@@ -49,7 +49,13 @@
                         @Html.TextBoxFor(x => x.WriterImage, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.WriterImage, "", new { @class = "text-danger" })
                         @*<input type="text" class="form-control" name="WriterImage" id="password2" placeholder="" required="">*@
+                        <div class="form-group col-md-12">
+                            <label for="validationCustom01 mb-2">Şehir</label>
+                            @Html.DropDownListFor(x => x.WriterCity, (List<SelectListItem>)ViewBag.Cities, new { @class = "form-control dropdown" })
+                        </div>
                     </div>
+                    
+
 
                 </div>
                 <button type="submit" id="b1" class="btn btn-primary submit mb-4">Kayıt Ol</button>
@@ -70,6 +76,7 @@
 
         /*öncelikle sayfa tamamen yüklendi ise diye bir seçenek koyalım*/
         $(document).ready(function () {
+            
             /*sayfada bulunan inputlardan bir tanesine odaklanma kaybolur ise (yani kullanici inputun dışına çıkarsa ) bir fonksiyon çalıştırıyoruz.*/
             $("input").focusout(function () {
                 /*sifre inputunun değerini okuyoruz*/
@@ -77,13 +84,16 @@
                 /*sifre_tekrar inputunun değerini okuyoruz.*/
                 sifre_tekrar = $("input#pw1").val();
                 /*eğer şifreler eşit değil ise*/
-                if (sifre != sifre_tekrar) {
-                    /*iki inputun altında bulunan labellere şifreler uyumsuz yazdırıyoruz.*/
-                    $(".sifre_sonuc").html("Şifreler Uyumsuz..");
-                } else {
-                    /*iki inputun altında bulunan labellere şifreler uyumlu yazdırıyoruz.*/
-                    $(".sifre_sonuc").html("Şifreler Uyumlu..");
+                if ($("input#pw").val().length >= 8) {
+                    if (sifre != sifre_tekrar) {
+                        /*iki inputun altında bulunan labellere şifreler uyumsuz yazdırıyoruz.*/
+                        $(".sifre_sonuc").html("Şifreler Uyumsuz..");
+                    } else {
+                        /*iki inputun altında bulunan labellere şifreler uyumlu yazdırıyoruz.*/
+                        $(".sifre_sonuc").html("Şifreler Uyumlu..");
+                    }
                 }
+                
             });
         });
     </script>

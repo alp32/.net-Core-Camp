@@ -18,6 +18,12 @@ namespace BusinessLayer.Concrete
             _writerdal = writerdal;
         }
 
+        public Task AddNewWriter(Writer writer)
+        {
+            _writerdal.Insert(writer);
+            return Task.CompletedTask;
+        }
+
         public List<Writer> GetList()
         {
             throw new NotImplementedException();

@@ -19,8 +19,8 @@
     @Html.Label("Blog Küçük Görsel")
     @Html.TextBoxFor(x => x.BlogThumbnailImage, new { @class = "form-control" })
     <br />
-    @Html.Label("Kateori")  
-    @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.cv, new { @class = "form-control" })
+    @Html.Label("Kateori")
+    @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
     <br />
     @Html.Label("Blog içeriği")
     @Html.TextAreaFor(x => x.BlogContent, 15, 3, new { @class = "form-control" })
@@ -29,3 +29,56 @@
 
     <button class="btn btn-info">Yazıyı Kaydet</button>
 }
+
+<script type="text/javascript">
+
+
+
+    $("#form").submit(function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (result) {
+
+                console.log(result);
+
+                if (result.success) {
+                    swal({
+                        title: "Bilgi",
+                        text: "Kayıt Başarılı",
+                        icon: "success",
+                        button: "Tamam",
+                    });
+
+
+
+
+
+                }
+                else {
+                    swal({
+                        title: "Uyarı",
+                        text: result.message,
+                        icon: "error",
+                        button: "Tamam",
+                    });
+                }
+
+            },
+            error: function () {
+                swal({
+                    title: "Uyarı",
+                    text: "saaa",
+                    icon: "error",
+                    button: "Tamam",
+                });
+            }
+        });
+    });
+</script>

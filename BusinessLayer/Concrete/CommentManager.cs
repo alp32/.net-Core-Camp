@@ -20,6 +20,12 @@ namespace BusinessLayer.Concrete
             _commentdal = commentdal;
         }
 
+        public Task AddComment(Comment comment)
+        {
+            _commentdal.Insert(comment);
+            return Task.CompletedTask;
+        }
+
         public void CommentAdd(Comment comment)
         {
             _commentdal.Insert(comment);

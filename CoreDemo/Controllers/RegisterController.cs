@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreDemo.Models;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -16,9 +17,11 @@ namespace CoreDemo.Controllers
     public class RegisterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        WriterCity writerCity = new WriterCity();
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Cities = writerCity.GetCityList();
             return View();
         }
         [HttpPost]
@@ -41,6 +44,7 @@ namespace CoreDemo.Controllers
                     ModelState.AddModelError(item.PropertyName,item.ErrorMessage);
                 }
             }
+            ViewBag.Cities = writerCity.GetCityList();
             return View();
            
         }

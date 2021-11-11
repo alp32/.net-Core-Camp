@@ -2,6 +2,7 @@
 using CoreDemo.Models.AraModeller;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -12,13 +13,13 @@ namespace CoreDemo.Controllers
         NewsLetterManager nm = new NewsLetterManager(new EfNewsLetterRepository());
 
         
-       
+       [AllowAnonymous]
         public async Task<IActionResult> SubscribeMail(NewsLetter p)
         {
             try
             {
                 p.MailStatus = true;
-                await nm.AddNewsLetter(p); ;
+                await nm.AddNewsLetter(p); 
 
                 return Json(new ResultModel { Success = true });
             }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreDemo.Models.AraModeller;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -32,21 +33,15 @@ namespace CoreDemo.Controllers
 
         public IActionResult BlogListByWriter()
         {
-           var values= bm.GetListWithCategoryByWriterBm(1);
+           var values= bm.GetListWithCategoryByWriterBm(2);
 
             return View(values);
         }
         [HttpGet]
         public IActionResult BlogAdd()
         {
-            
-            List<SelectListItem> categoryvalues = (from x in cm.GetList()
-                                                   select new SelectListItem
-                                                   {
-                                                       Text=x.CategoryName,
-                                                       Value=x.CategoryID.ToString()
-                                                   }).ToList();
-            ViewBag.cv = categoryvalues;
+
+            GetCategoryList();
             return View();
         }
         [HttpPost]
@@ -57,10 +52,10 @@ namespace CoreDemo.Controllers
             if (results.IsValid)
             {
                 p.BlogStatus = true;
-                p.BlogCreateDate  = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = 1;
+                p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                p.WriterID = 2;
                 bm.TAdd(p);
-                return RedirectToAction("BlogListByWriter", "Blog");
+                
             }
             else
             {
@@ -69,8 +64,23 @@ namespace CoreDemo.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-            
-            return View();
+            GetCategoryList();
+            return RedirectToAction("BlogListByWriter", "Blog");
+
+
+
+
+        }
+        public void GetCategoryList()
+        {
+             
+            List<SelectListItem> CategoryValues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
+            ViewBag.CategoryList = CategoryValues;
         }
         public IActionResult DeleteBlog(int id)
         {
@@ -94,11 +104,14 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p)
         {
+            
             p.WriterID = 2;
+                
             p.BlogCreateDate =DateTime.Parse(DateTime.Now.ToShortDateString());
             p.BlogStatus = true;
             bm.TUpdate(p);
-            return View("BlogListByWriter");
+            GetCategoryList();
+            return RedirectToAction("BlogListByWriter");
         }
 
     }
